@@ -52,7 +52,7 @@ const CoinList = ({ id }) => {
           columns={columns()}
           pageSize={100}
           rowsPerPageOptions={[100]}
-          checkboxSelection
+          // checkboxSelection
           disableSelectionOnClick
           onSelectionModelChange={(checked) => {
             setSelections(checked);
