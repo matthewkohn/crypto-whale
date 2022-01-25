@@ -11,7 +11,7 @@ export default function columns() {
       headerName: 'Logo',
       renderCell: (params: GridRenderCellParams) => (
         <>
-          {console.log(params)}
+          {/* {console.log(params)} */}
           <img
             src={params.formattedValue}
             alt={params.id}

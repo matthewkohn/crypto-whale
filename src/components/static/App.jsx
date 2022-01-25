@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Portfolio />} />
         <Route path="/coins" element={<CoinList />} />
-        <Route path="/coins/{id}" element={
+        <Route path="/coins/:id" element={
           <>
             <Transact />
             <Coin />          
