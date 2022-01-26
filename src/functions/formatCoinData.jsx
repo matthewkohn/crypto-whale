@@ -9,9 +9,8 @@ export default function formatCoinData(coin) {
   const low = formatPrice(coin.low_24h);
   const changePercent = (coin.price_change_percentage_24h / 100).toLocaleString(undefined, { style: "percent", minimumFractionDigits: 2 });
   const marketCap = `$${(coin.market_cap / 1000000).toFixed(3)} million`;
-  const sparklineData = coin.sparkline_in_7d.price;
   
-  return [ imageUrl, id, name, symbol, price, rank, high, low, changePercent, marketCap, sparklineData ];
+  return [ imageUrl, id, name, symbol, price, rank, high, low, changePercent, marketCap ];
 }
 
 const formatPrice = (price) => {

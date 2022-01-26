@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../navigation/Navbar";
 import Portfolio from "../portfolio/Portfolio";
 import CoinList from "../coin-list/CoinList";
-import Transact from "../transaction/Transact";
-import Coin from "../transaction/Coin";
+import Transaction from "../transaction/Transaction";
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container } from "@mui/material";
-import Transaction from "../transaction/Transaction";
 
 
 function App() {
@@ -23,17 +22,17 @@ function App() {
   }, []);
 
   return (
-    <Container >
-      <Router>
+    <Router>
+      <Container >
         <Navbar />
         <Routes>
           <Route path="/" element={<Portfolio coins={coins} />} />
           <Route path="/coins" element={<CoinList coins={coins} isLoaded={isLoaded} />} />
           <Route path="/coins/:id" element={<Transaction coins={coins} />} />
-        </Routes>      
-      </Router>
+        </Routes>  
+      </Container>
+    </Router>
 
-    </Container>
   );
 }
 

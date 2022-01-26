@@ -8,6 +8,7 @@ export default function rows(coins) {
       name: coin.name,
       price: `$${coin.current_price.toFixed(2).toLocaleString()}`,
       change: `${coin.price_change_percentage_24h.toFixed(2)}%`,
+      sparkline: coin.sparkline_in_7d.price
     }
   });
 }
