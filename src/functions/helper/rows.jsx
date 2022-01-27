@@ -6,7 +6,7 @@ export default function rows(coins) {
       image: coin.image,
       symbol: coin.symbol.toUpperCase(),
       name: coin.name,
-      price: `$${coin.current_price.toFixed(2).toLocaleString()}`,
+      price: coin.current_price.toLocaleString(undefined, { style: "currency", currency: "USD" }),
       change: `${coin.price_change_percentage_24h.toFixed(2)}%`,
       sparkline: coin.sparkline_in_7d.price
     }

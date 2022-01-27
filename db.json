@@ -1,0 +1,28 @@
+{
+  "coins": [
+    {
+      "id": 1,
+      "coinId": "ethereum",
+      "quantity": 8,
+      "value": 23843.92
+    },
+    {
+      "id": 2,
+      "coinId": "bitcoin",
+      "quantity": 0.28,
+      "value": 6846.26
+    },
+    {
+      "coinId": "cardano",
+      "quantity": 2000,
+      "value": 100000,
+      "id": 3
+    },
+    {
+      "coinId": "cardano",
+      "quantity": 2000,
+      "value": 100000,
+      "id": 4
+    }
+  ]
+}

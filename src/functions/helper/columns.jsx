@@ -19,7 +19,7 @@ export default function columns() {
     {
       field: 'image',
       headerName: 'Logo',
-      renderCell: (params: GridRenderCellParams) => (
+      renderCell: (params) => (
         <>
           <img
             src={params.formattedValue}
@@ -28,20 +28,20 @@ export default function columns() {
             />
         </>
       ),
-      width: 100,
+      width: 80,
       sortable: false,
     },
     {
       field: 'symbol',
       headerName: 'Symbol',
-      width: 140,
+      width: 120,
     },
     {
       field: 'name',
       headerName: 'Name',
-      width: 250,
-      renderCell: (params: GridRenderCellParams) => (
-        <h2>{params.formattedValue}</h2>
+      width: 210,
+      renderCell: (params) => (
+        <h3>{params.formattedValue}</h3>
       ),
     },
     {
@@ -49,20 +49,23 @@ export default function columns() {
       headerName: 'Current Value',
       sortable: true,
       type: 'number',
-      width: 140,
+      width: 120,
+      renderCell: (params) => (
+        <h3>{params.formattedValue}</h3>
+      ),
     },
     {
       field: 'change',
       headerName: '24hr Change',
       sortable: true,
       type: 'number',
-      width: 140,
+      width: 120,
     },
     {
       field: 'sparkline',
       headerName: 'Past 7 days',
       headerAlign: 'center',
-      renderCell: (params: GridRenderCellParams) => (
+      renderCell: (params) => (
         <>
           {/* {console.log(params)} */}
           <Sparklines data={params.formattedValue} style={chartStyles} margin={1}  >
@@ -72,7 +75,7 @@ export default function columns() {
       ),
       sortable: false,
       type: 'number',
-      width: 240,
+      width: 280,
     },
   ];
 }
