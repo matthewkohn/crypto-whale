@@ -17,12 +17,6 @@
       "quantity": 2000,
       "value": 100000,
       "id": 3
-    },
-    {
-      "coinId": "cardano",
-      "quantity": 2000,
-      "value": 100000,
-      "id": 4
     }
   ]
 }
