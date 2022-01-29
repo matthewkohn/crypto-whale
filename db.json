@@ -3,8 +3,8 @@
     {
       "id": 1,
       "coinId": "ethereum",
-      "quantity": 8,
-      "value": 23843.92
+      "quantity": 19.239131,
+      "value": 50000.00038197
     },
     {
       "id": 2,
@@ -17,6 +17,18 @@
       "quantity": 2000,
       "value": 100000,
       "id": 3
+    },
+    {
+      "coinId": "tether",
+      "quantity": "50.000000",
+      "value": 50,
+      "id": 4
+    },
+    {
+      "coinId": "dogecoin",
+      "quantity": 1401.846231,
+      "value": 199.999999930539,
+      "id": 5
     }
   ]
 }

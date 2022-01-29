@@ -5,7 +5,11 @@ const Transact = ({ coin, cash, handleSetCash }) => {
   const [ownedCoin, setOwnedCoin] = useState({});
   const [amount, setAmount] = useState('');
   const [tradeQty, setTradeQty] = useState(0);
-  // const [tradePrice, setTradePrice] = useState(0);
+  const [transactObj, setTransactObj] = useState({
+    coinId: '',
+    quantity: 0,
+    value: 0
+  })
 
   useEffect(() => {
     fetch(`http://localhost:3001/coins?coinId=${coin.id}`)
@@ -17,25 +21,53 @@ const Transact = ({ coin, cash, handleSetCash }) => {
     }, [coin.id]);
 
   useEffect(() => {
-    const currentQty = (amount / coin.current_price).toFixed(6);
-    setTradeQty(currentQty)
-  }, [amount])
+    const currentQty = parseFloat((amount / coin.current_price).toFixed(6));
+    setTradeQty(currentQty);
+  }, [amount, coin.current_price]);
+  
+  useEffect(() => {
+    const currentTransactionObj = {
+      coinId: coin.id,
+      quantity: tradeQty,
+      value: (coin.current_price * tradeQty)
+    }
+    setTransactObj(currentTransactionObj)
+  }, [amount, coin.id, tradeQty, coin.current_price])
   
 
+  console.log(typeof tradeQty)
 
 
-  // const handlePost = () => {
-  //   fetch('http://localhost:3001/coins', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(exampleData)
-  //   })
-  //     .then((res) => res.json())
-  //     .then(console.log)
-  // }
-
+  
+  const updateTransaction = () => {
+    fetch(`http://localhost:3001/coins/${ownedCoin.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(transactObj)
+    })
+    .then((res) => res.json())
+    .then(console.log)
+  }
+  
+  const postTransaction = () => {
+    fetch('http://localhost:3001/coins', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(transactObj)
+    })
+    .then((res) => res.json())
+    .then(console.log)
+  }
+  
+  const handleClick = () => {
+    
+    ownedCoin === undefined ? postTransaction() : updateTransaction();
+    // console.log(transactObj)
+  }
 
   return (
     <>
@@ -60,8 +92,8 @@ const Transact = ({ coin, cash, handleSetCash }) => {
           }}
         />
         <h4>Quantity: {tradeQty}</h4>
-        {/* <Button onClick={() => handlePost()} variant="contained">Buy</Button> */}
-        <Button variant="contained">Sell</Button>
+        <Button onClick={handleClick} variant="contained">Buy</Button>
+        <Button onClick={handleClick} variant="contained">Sell</Button>
       </Box>
         
 
