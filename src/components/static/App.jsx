@@ -40,7 +40,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Portfolio coins={coins} cash={cash} />} />
           <Route path="/coins" element={<CoinList coins={coins} isLoaded={isLoaded} />} />
-          <Route path="/coins/:id" element={<Transaction coins={coins} cash={cash} handleSetCash={setCash} />} />
+          <Route path="/coins/:id" element={<Transaction coins={coins} cash={cash} handleCash={setCash} />} />
         </Routes>  
       </Container>
     </Router>

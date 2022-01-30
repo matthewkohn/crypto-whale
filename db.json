@@ -3,14 +3,14 @@
     {
       "id": 1,
       "coinId": "ethereum",
-      "quantity": 19.239131,
-      "value": 50000.00038197
+      "quantity": 4.237551999999999,
+      "value": 11100.00120326
     },
     {
       "id": 2,
       "coinId": "bitcoin",
-      "quantity": 0.28,
-      "value": 6846.26
+      "quantity": 0.130565,
+      "value": 4999.986674999999
     },
     {
       "coinId": "cardano",
@@ -29,6 +29,18 @@
       "quantity": 1401.846231,
       "value": 199.999999930539,
       "id": 5
+    },
+    {
+      "coinId": "solana",
+      "quantity": 52.339579,
+      "value": 4999.99998187,
+      "id": 6
+    },
+    {
+      "coinId": "shiba-inu",
+      "quantity": 505747.126437,
+      "value": 11.00000000000475,
+      "id": 7
     }
   ]
 }

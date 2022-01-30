@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-const Transact = ({ coin, cash, handleSetCash }) => {
+const Transact = ({ coin, cash, handleCash }) => {
   const [ownedCoin, setOwnedCoin] = useState({});
-  const [amount, setAmount] = useState('');
+  const [buyAmount, setBuyAmount] = useState('');
+  const [sellAmount, setSellAmount] = useState('');
   const [tradeQty, setTradeQty] = useState(0);
   const [transactObj, setTransactObj] = useState({
     coinId: '',
     quantity: 0,
     value: 0
   })
+  let navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3001/coins?coinId=${coin.id}`)
@@ -21,25 +24,24 @@ const Transact = ({ coin, cash, handleSetCash }) => {
     }, [coin.id]);
 
   useEffect(() => {
-    const currentQty = parseFloat((amount / coin.current_price).toFixed(6));
+    const currentQty = parseFloat((buyAmount / coin.current_price).toFixed(6));
     setTradeQty(currentQty);
-  }, [amount, coin.current_price]);
+  }, [buyAmount, coin]);
   
   useEffect(() => {
     const currentTransactionObj = {
       coinId: coin.id,
-      quantity: tradeQty,
-      value: (coin.current_price * tradeQty)
+      quantity: tradeQty + ownedCoin.quantity,
+      value: (coin.current_price * tradeQty) + ownedCoin.value
     }
     setTransactObj(currentTransactionObj)
-  }, [amount, coin.id, tradeQty, coin.current_price])
-  
+  }, [coin, tradeQty, ownedCoin]);
 
-  console.log(typeof tradeQty)
-
-
-  
-  const updateTransaction = () => {
+  const updateTransaction = (buy) => {
+    if (cash < buyAmount || ownedCoin.value < sellAmount) {
+      console.log("Errorrrrrr")
+      return;
+    }
     fetch(`http://localhost:3001/coins/${ownedCoin.id}`, {
       method: 'PATCH',
       headers: {
@@ -47,8 +49,8 @@ const Transact = ({ coin, cash, handleSetCash }) => {
       },
       body: JSON.stringify(transactObj)
     })
-    .then((res) => res.json())
-    .then(console.log)
+      .then((res) => res.json())
+      .then(console.log)
   }
   
   const postTransaction = () => {
@@ -63,16 +65,21 @@ const Transact = ({ coin, cash, handleSetCash }) => {
     .then(console.log)
   }
   
-  const handleClick = () => {
-    
-    ownedCoin === undefined ? postTransaction() : updateTransaction();
-    // console.log(transactObj)
+  const handleClick = (buy) => {
+ 
+    if (ownedCoin === undefined) {
+      postTransaction();
+    } else {
+      handleCash(cash - buyAmount);
+      updateTransaction(buy);
+    }
+    navigate('/');
   }
 
   return (
     <>
       <h2>Trade {coin.name}</h2>
-      <h4>Cash available to trade: {cash}</h4>
+      <h4>Cash available to trade: ${cash.toLocaleString()}</h4>
       <Box
         component="form"
         sx={{
@@ -85,20 +92,31 @@ const Transact = ({ coin, cash, handleSetCash }) => {
           id="outlined-number"
           label="Amount"
           type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          value={buyAmount}
+          onChange={(e) => setBuyAmount(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          inputProps={{ max: cash }}
+        />
+          <Button onClick={(buy) => handleClick(buy)} variant="contained">Buy</Button>
+        <TextField
+          id="outlined-number"
+          label="Amount"
+          type="number"
+          value={sellAmount}
+          onChange={(e) => setSellAmount(e.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
         />
+        <Button onClick={(buy) => handleClick(!buy)} variant="contained">Sell</Button>
         <h4>Quantity: {tradeQty}</h4>
-        <Button onClick={handleClick} variant="contained">Buy</Button>
-        <Button onClick={handleClick} variant="contained">Sell</Button>
       </Box>
-        
+    
 
       <h2>Your Portfolio</h2>
-      <h4>Number of { coin.name } Owned: { ownedCoin ? ownedCoin.quantity : 0 }</h4>
+      <h4>{ coin.name } Owned: { ownedCoin ? ownedCoin.quantity : 0 }</h4>
       <h4>Current Value: ${ ownedCoin ? ownedCoin.value : 0 }</h4>
     </>
   );

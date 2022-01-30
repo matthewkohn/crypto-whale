@@ -2,10 +2,9 @@ import React from 'react';
 import Coin from './Coin';
 import Transact from './Transact';
 import { useParams } from 'react-router-dom';
-import { Grid } from '@mui/material';
-import { Paper } from '@mui/material';
+import { Grid, Paper } from '@mui/material';
 
-const Transaction = ({ coins, cash, handleSetCash }) => {
+const Transaction = ({ coins, cash, handleCash }) => {
   const param = useParams();
   const coin = coins.filter(coin => coin.id === param.id)[0];
 
@@ -18,12 +17,10 @@ const Transaction = ({ coins, cash, handleSetCash }) => {
       </Grid>
       <Grid item xs={4} md={4}>
         <Paper elevation={3} style={{height: "70vh"}}>
-          <Transact coin={coin} cash={cash} handleSetCash={handleSetCash}/>
+          <Transact coin={coin} cash={cash} handleCash={handleCash}/>
         </Paper>
       </Grid>
     </Grid>
-    
-    
   );
 };
 
