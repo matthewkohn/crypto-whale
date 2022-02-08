@@ -1,16 +1,24 @@
 {
   "coins": [
     {
-      "id": 1,
-      "name": "ethereum",
-      "likes": 3,
-      "imageURL": "#"
+      "name": "Cardano",
+      "imageUrl": "https://assets.coingecko.com/coins/images/975/large/cardano.png?1547034860",
+      "id": 9
     },
     {
-      "id": 2,
-      "name": "bitcoin",
-      "likes": 5,
-      "imageURL": "#"
+      "name": "Dogecoin",
+      "imageUrl": "https://assets.coingecko.com/coins/images/5/large/dogecoin.png?1547792256",
+      "id": 10
+    },
+    {
+      "name": "Bitcoin",
+      "imageUrl": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+      "id": 11
+    },
+    {
+      "name": "Ethereum",
+      "imageUrl": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880",
+      "id": 12
     }
   ]
 }

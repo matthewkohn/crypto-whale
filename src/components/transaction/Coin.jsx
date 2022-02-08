@@ -1,21 +1,34 @@
 import React from 'react';
 import formatCoinData from '../../functions/data/formatCoinData';
-import { useParams } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Button, Card } from '@mui/material';
 
 
-const Coin = ({ coins }) => {
+const Coin = ({ coins, onAddCoin }) => {
   const param = useParams();
+  const navigate = useNavigate();
+
   const coin = coins.filter((item) => item.id === param.id)[0];
   const [ imageUrl, id, name, symbol, price, rank, high, low, changePercent, marketCap ] = formatCoinData(coin);
   
-  // onClick will:
-  //  Post to db.json()
-  //  Navigate to Portfolio
-  //    Portfolio will update on mount
+  const handleClick = () => {
+    
+    fetch('http://localhost:3001/coins', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, imageUrl })
+    })
+      .then((res) => res.json())
+      .then((data) => onAddCoin(data))
+    
+    navigate('/');
+  }
+  
 
   return (
-    <>
+    <Card sx={{maxWidth: 800}}>
       <div style={{display: 'flex', padding: 40}}>
         <img src={imageUrl} alt={id} style={{ width: 80, height: 80, marginRight: 80 }}/>
         <div style={{background: '#DDD'}}>
@@ -31,8 +44,9 @@ const Coin = ({ coins }) => {
         <li>24-hour Low: {low}</li>
         <li>24-hour Change: {changePercent}</li>
       </ul>    
-      <Button variant="contained" onClick={() => console.log("Ok Great")}>Contained</Button>
-    </>
+      <Button variant="contained" onClick={handleClick} >Add to Portfolio</Button>
+      <Button variant="contained" onClick={() => navigate('/coins')} >Back to List</Button>
+    </Card>
   );
 };
 

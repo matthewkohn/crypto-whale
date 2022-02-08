@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import LikedCoin from './LikedCoin';
 
-const Portfolio = () => {
-  const [likedCoins, setLikedCoins] = useState([]);
+const Portfolio = ({ likedCoins, onUpdatePortfolio }) => {
 
-  useEffect(() => {
-    fetch('http://localhost:3001/coins')
-      .then((res) => res.json())
-      .then((coins) => setLikedCoins(coins))
-  }, []);
+  const deleteCoin = (id) => {
+    const updatedCoins = likedCoins.filter((coin) => coin.id !== id);
+    onUpdatePortfolio(updatedCoins);
+  }
 
-  console.log(likedCoins); // map list cards for each liked coin
-  
+  const likedCoinsList = likedCoins.map((coin) => (
+    <LikedCoin key={coin.id} coin={coin} onDeleteCoin={deleteCoin} />
+  ));
 
   return (
-    <div>Portfolio Component</div>
+    <div>{likedCoinsList}</div>
   );
 };
 
