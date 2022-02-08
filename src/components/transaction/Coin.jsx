@@ -1,12 +1,19 @@
 import React from 'react';
-
 import formatCoinData from '../../functions/data/formatCoinData';
+import { useParams } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 
-const Coin = ({ coin }) => {
-  
+const Coin = ({ coins }) => {
+  const param = useParams();
+  const coin = coins.filter((item) => item.id === param.id)[0];
   const [ imageUrl, id, name, symbol, price, rank, high, low, changePercent, marketCap ] = formatCoinData(coin);
   
+  // onClick will:
+  //  Post to db.json()
+  //  Navigate to Portfolio
+  //    Portfolio will update on mount
+
   return (
     <>
       <div style={{display: 'flex', padding: 40}}>
@@ -24,6 +31,7 @@ const Coin = ({ coin }) => {
         <li>24-hour Low: {low}</li>
         <li>24-hour Change: {changePercent}</li>
       </ul>    
+      <Button variant="contained" onClick={() => console.log("Ok Great")}>Contained</Button>
     </>
   );
 };

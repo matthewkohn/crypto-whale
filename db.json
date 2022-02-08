@@ -2,45 +2,15 @@
   "coins": [
     {
       "id": 1,
-      "coinId": "ethereum",
-      "quantity": 80.96875999999999,
-      "value": 247726.00236989997
+      "name": "ethereum",
+      "likes": 3,
+      "imageURL": "#"
     },
     {
       "id": 2,
-      "coinId": "bitcoin",
-      "quantity": 0.130565,
-      "value": 4999.986674999999
-    },
-    {
-      "coinId": "cardano",
-      "quantity": 2000,
-      "value": 100000,
-      "id": 3
-    },
-    {
-      "coinId": "tether",
-      "quantity": "49490050.000000",
-      "value": 4999,
-      "id": 4
-    },
-    {
-      "coinId": "dogecoin",
-      "quantity": 1401.846231,
-      "value": 199.999999930539,
-      "id": 5
-    },
-    {
-      "coinId": "solana",
-      "quantity": 52.339579,
-      "value": 4999.99998187,
-      "id": 6
-    },
-    {
-      "coinId": "shiba-inu",
-      "quantity": 505747.126437,
-      "value": 11.00000000000475,
-      "id": 7
+      "name": "bitcoin",
+      "likes": 5,
+      "imageURL": "#"
     }
   ]
 }
