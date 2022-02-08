@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Transact = ({ coin, cash, handleCash }) => {
   const [ownedCoin, setOwnedCoin] = useState({});
-  const [buyAmount, setBuyAmount] = useState('');
+  const [buyInput, setBuyInput] = useState('');
   const [sellAmount, setSellAmount] = useState('');
   const [tradeQty, setTradeQty] = useState(0);
   const [transactObj, setTransactObj] = useState({
@@ -24,9 +24,9 @@ const Transact = ({ coin, cash, handleCash }) => {
     }, [coin.id]);
 
   useEffect(() => {
-    const currentQty = parseFloat((buyAmount / coin.current_price).toFixed(6));
+    const currentQty = parseFloat((buyInput / coin.current_price).toFixed(6));
     setTradeQty(currentQty);
-  }, [buyAmount, coin]);
+  }, [buyInput, coin]);
   
   useEffect(() => {
     const currentTransactionObj = {
@@ -38,7 +38,7 @@ const Transact = ({ coin, cash, handleCash }) => {
   }, [coin, tradeQty, ownedCoin]);
 
   const updateTransaction = (buy) => {
-    if (cash < buyAmount || ownedCoin.value < sellAmount) {
+    if (cash < buyInput || ownedCoin.value < sellAmount) {
       console.log("Errorrrrrr")
       return;
     }
@@ -70,7 +70,7 @@ const Transact = ({ coin, cash, handleCash }) => {
     if (ownedCoin === undefined) {
       postTransaction();
     } else {
-      handleCash(cash - buyAmount);
+      handleCash(cash - buyInput);
       updateTransaction(buy);
     }
     navigate('/');
@@ -91,13 +91,14 @@ const Transact = ({ coin, cash, handleCash }) => {
          <TextField
           id="outlined-number"
           label="Amount"
-          type="number"
-          value={buyAmount}
-          onChange={(e) => setBuyAmount(e.target.value)}
+          type="text"
+          value={buyInput}
+          onChange={(e) => setBuyInput(e.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
-          inputProps={{ max: cash }}
+          inputProps={{ max: {cash}, min: 0, inputMode: 'numeric', pattern: '[0-9]*' }}
+          // inputProps={{ max: `${cash}` }}
         />
           <Button onClick={(buy) => handleClick(buy)} variant="contained">Buy</Button>
         <TextField
@@ -110,6 +111,7 @@ const Transact = ({ coin, cash, handleCash }) => {
             shrink: true,
           }}
         />
+        <input type="number" max={cash} min='0' />
         <Button onClick={(buy) => handleClick(!buy)} variant="contained">Sell</Button>
         <h4>Quantity: {tradeQty}</h4>
       </Box>

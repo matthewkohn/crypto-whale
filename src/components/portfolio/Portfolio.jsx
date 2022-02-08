@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PortfolioSummary from './PortfolioSummary';
 import PortfolioList from './PortfolioList';
 import { Grid, Paper } from '@mui/material';
 
 const Portfolio = ({ cash }) => {
+
+  useEffect(() => {
+    fetch('http://localhost:3001/coins')
+      .then((res) => res.json())
+      .then(console.log)
+  }, [])
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={4} md={4}>
